@@ -1,0 +1,177 @@
+<!-- Create by Noodlecat -->
+<html>
+<head>
+    <title>Solaros</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+    <script src="mootools.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href=
+    "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    rel="stylesheet">
+    <link charset="utf-8" href="css/fonts.css" rel="stylesheet" type=
+    "text/css">
+</head>
+
+<body>
+    <!-- All the "squares" and there data -->
+
+    <div class="instantpower">
+        Instantaneous Power<br>
+        <!-- Gauge -->
+        <canvas id="powergauge"></canvas> <span class="gaugespan" id=
+        "gauge-value"></span> <span class="gaugespan2">kw</span>
+    </div>
+
+    <div class="lifemeter">
+        Generated To Date<br>
+        <br>
+        <!-- Bolt and data -->
+        <img class="iconbolt" height="auto" src="images/bolt.png" width="10%">
+
+        <div class="lifemeterclass" id="lifemeterdiv"></div>
+    </div>
+
+    <div class="moneysaved">
+        Money Saved<br>
+        <br>
+
+        <div class="moneysavedclass" id="moneysaveddiv"></div>
+    </div>
+
+    <div class="treessaved">
+        Trees Saved<br>
+        <br>
+
+        <div class="treessavedclass" id="treessaveddiv"></div>
+    </div>
+
+    <div class="oiloffsets">
+        Oil Offsets<br>
+        <br>
+
+        <div class="oiloffsetsclass" id="oiloffsetsdiv"></div>
+    </div>
+
+    <div class="co2offsets">
+        CO2 Offsets<br>
+        <br>
+
+        <div class="co2offsetsclass" id="co2offsetsdiv"></div>
+    </div><script>
+
+    //creates global variables for oil offsets and trees saved
+    var treessavedvarglobal = 4;
+    var oiloffsetsvarglobal = 4;
+
+    function getSolarData(){
+
+    //gets all the data from json file
+    $.getJSON("/v1/solaros", function(data){
+    if (data.instant_power) {
+          var instantpowervar = (data.instant_power);
+    }
+    if (data.life_meter ) {
+            document.getElementById("lifemeterdiv").innerHTML= data.life_meter + " kWh";
+    }
+    if (data.money_saved) {
+            document.getElementById("moneysaveddiv").innerHTML= "$" + data.money_saved;
+    }
+    if (data.trees_saved) {
+            treessavedvarglobal = (Math.round(data.trees_saved))
+    }
+    if (data.oil_offset) {
+            oiloffsetsvarglobal = (Math.round(data.oil_offset))
+    }
+    if (data.co2_offset) {
+            var co2offsetsvar = (data.co2_offset);
+            document.getElementById("co2offsetsdiv").innerHTML= data.co2_offset + " lbs";
+    }
+
+    //gauge created by https://github.com/bernii
+    var opts = {
+      lines: 12,
+      angle: 0,
+      lineWidth: 0.1,
+      pointer: {
+      length: 0,
+      strokeWidth: 0,
+      color: '#000000'
+    },
+      limitMax: 'false',
+      percentColors: [[0.0, "#ff0000"], [0.30, "#f9c802"], [0.60, "#a9d70b" ]], // !!!!
+      strokeColor: '#E0E0E0',
+      generateGradient: true
+    };
+      var target = document.getElementById('powergauge');
+      var gauge = new Gauge(target).setOptions(opts);
+      gauge.maxValue = 10;
+      gauge.animationSpeed = 32 ;
+      gauge.set(parseInt(instantpowervar));
+      gauge.setTextField(document.getElementById("gauge-value"));
+    });
+
+    // refresh every 30 seconds
+    setTimeout("getSolarData()",30000);
+    }
+    getSolarData();
+
+    //generate tree images with image(); function
+    var a;
+
+    function image(thisImg) {
+    var img = document.createElement("IMG");
+    img.src = "images/tree.png"
+    document.getElementById('treessaveddiv').appendChild(img);
+    }
+    if (a == 'tick') {
+    image('tick.gif');
+    } else {
+    image('cross.gif');
+    }
+
+    //contineously calls image(); function until the precise number of trees are drawn
+    var start = (function(count) {
+    if (count < treessavedvarglobal-1) {
+        
+        image();
+        
+        var caller = arguments.callee;
+        
+        window.setTimeout(function() {
+            caller(count + 1);
+        },10);    
+    }
+    setTimeout("start",1);
+    })(0);
+
+    //same thing for oil barrels
+    var aone;
+
+    function imageone(thisImg) {
+    var imgone = document.createElement("IMG");
+    imgone.src = "images/oilbarrel.png"
+    document.getElementById('oiloffsetsdiv').appendChild(imgone);
+    }
+    if (aone == 'tick') {
+    imageone('tick.gif');
+    } else {
+    imageone('cross.gif');
+    }
+
+    var startone = (function(countone) {
+    if (countone < oiloffsetsvarglobal-1) {
+        
+        imageone();
+        
+        var callerone = arguments.callee;
+        
+        window.setTimeout(function() {
+            callerone(countone + 1);
+        },10);    
+    }
+    setTimeout("startone",1);
+    })(0);
+    </script>
+</body>
+</html>

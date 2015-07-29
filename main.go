@@ -164,6 +164,7 @@ func scrape() (SolarOSReading, error) {
 	reading.TreesSaved = treesSaved(body)
 	reading.OilOffset = oilOffset(body)
 	reading.CO2Offset = co2Offset(body)
+
 	return reading, nil
 }
 
@@ -176,6 +177,7 @@ func query(w http.ResponseWriter, r *http.Request) {
 
 func serve() {
 	log.Println("Starting server on port 3000")
+	http.Handle("/", http.FileServer(http.Dir("web")))
 	http.HandleFunc("/v1/solaros", query)
 	http.ListenAndServe(":3000", nil)
 }
@@ -185,11 +187,30 @@ func makeJSON() {
 		log.Println(err)
 		return
 	}
+	if reading.InstantaneousPower == "" {
+		return
+	}
+	if reading.MoneySaved == "" {
+		return
+	}
+	if reading.TreesSaved == "" {
+		return
+	}
+	if reading.LifeMeter == "" {
+		return
+	}
+	if reading.CO2Offset == "" {
+		return
+	}
+	if reading.OilOffset == "" {
+		return
+	}
 	jsn, err := json.MarshalIndent(reading, "", "\t")
 	if err != nil {
 		log.Println(err)
 		return
 	}
+
 	jsonResponse = jsn
 }
 
@@ -203,7 +224,7 @@ func main() {
 
 	makeJSON()
 	go serve()
-	tickChan := time.NewTicker(time.Second * 30).C
+	tickChan := time.NewTicker(time.Minute * 5).C
 	for {
 		select {
 		case <-tickChan:

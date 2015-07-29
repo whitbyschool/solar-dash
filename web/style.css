@@ -1,0 +1,123 @@
+body {
+  background-color: #222222
+}
+div.instantpower {
+  width: 59%;
+  height: 31.5%;
+  border: 0px;
+  margin: 0.5%;
+  background-color: #ec663c;
+  float:left;
+  font-family: 'open_sansthin';
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 4vw;
+}
+div.lifemeter {
+  width: 39%;
+  height: 31.5%;
+  border: 0px;
+  margin: 0.5%;
+  background-color: #9c4274;
+  float:left;
+  font-family: 'open_sansthin';
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 4vw;
+}
+div.moneysaved {
+  width: 39%;
+  height: 31.5%;
+  border: 0px;
+  margin: 0.5%;
+  background-color: #12b0c5;
+  float:left;
+  font-family: 'open_sansthin';
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 4vw;
+}
+div.treessaved {
+  width: 59%;
+  height: 31.5%;
+  border: 0px;
+  margin: 0.5%;
+  background-color: #ec663c;
+  float:left;
+  font-family: 'open_sansthin';
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 4vw;
+}
+div.oiloffsets {
+  width: 59%;
+  height: 31.5%;
+  border: 0px;
+  margin: 0.5%;
+  background-color: #9c4274;
+  float: left;
+  font-family: 'open_sansthin';
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 4vw;
+}
+div.co2offsets {
+  width: 39%;
+  height: 31.5%;
+  border: 0px;
+  margin: 0.5%;
+  background-color: #12b0c5;
+  float:left;
+  font-family: 'open_sansthin';
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 4vw;
+}
+
+div.lifemeterclass {
+  display: inline-block;
+    vertical-align:middle;
+  font-family: 'open_sansbold';
+  color: white;
+}
+div.moneysavedclass {
+  font-family: 'open_sansbold';
+  color: white;
+}
+
+div.treessavedclass img {
+  width: 5%;
+  height: auto;
+}
+
+div.oiloffsetsclass img {
+  width: 5%;
+  height: auto;
+}
+
+div.co2offsetsclass {
+  font-family: 'open_sansbold';
+  color: white;
+}
+
+.iconbolt {
+  display: inline-block;
+   vertical-align:middle;
+}
+
+.gaugespan {
+  position:absolute;
+  top: 20%;
+  left: 23%;
+  font-size: 6vw;
+  font-family: 'open_sansbold';
+  color: white;
+}
+.gaugespan2 {
+  position:absolute;
+  top: 20%;
+  left: 28%;
+  font-size: 6vw;
+  font-family: 'open_sansbold';
+  color: white;
+}

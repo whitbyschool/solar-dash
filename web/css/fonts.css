@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'open_sansbold';
+    src: url('fonts/bold/font-webfont.eot');
+    src: url('fonts/bold/font-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/bold/font-webfont.woff2') format('woff2'),
+         url('fonts/bold/font-webfont.woff') format('woff'),
+         url('fonts/bold/font-webfont.ttf') format('truetype'),
+         url('fonts/bold/font-webfont.svg#open_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'open_sansthin';
+    src: url('fonts/thin/font-webfont.eot');
+    src: url('fonts/thin/font-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/thin/font-webfont.woff2') format('woff2'),
+         url('fonts/thin/font-webfont.woff') format('woff'),
+         url('fonts/thin/font-webfont.ttf') format('truetype'),
+         url('fonts/thin/font-webfont.svg#open_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
